@@ -3,3 +3,17 @@ PKG compiler-libs ppx_tools ppx_tools.metaquot
 SRC src/**
 
 B src/**
+
+####{BSB GENERATED: NO EDIT
+FLG -ppx /Users/ec/Documents/Code/Source/sedlex/node_modules/bs-platform/lib/bsppx.exe
+S /Users/ec/Documents/Code/Source/sedlex/node_modules/bs-platform/lib/ocaml
+B /Users/ec/Documents/Code/Source/sedlex/node_modules/bs-platform/lib/ocaml
+FLG -nostdlib -no-alias-deps -color always
+FLG -w -30-40+6+7+27+32..39+44+45+101
+S /Users/ec/Documents/Code/Source/sedlex/node_modules/@elliottcable/bs-uchar/lib/ocaml
+B /Users/ec/Documents/Code/Source/sedlex/node_modules/@elliottcable/bs-uchar/lib/ocaml
+S /Users/ec/Documents/Code/Source/sedlex/node_modules/@elliottcable/bs-gen/lib/ocaml
+B /Users/ec/Documents/Code/Source/sedlex/node_modules/@elliottcable/bs-gen/lib/ocaml
+S src/lib
+B lib/bs/src/lib
+####BSB GENERATED: NO EDIT}

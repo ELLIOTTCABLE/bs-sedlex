@@ -1,0 +1,23 @@
+{
+  "name": "@elliottcable/bs-sedlex",
+  "version": "1.99.4",
+  "sources": [
+    {
+       "dir": "src/lib"
+    }
+  ],
+  "bs-dependencies": [
+    "@elliottcable/bs-uchar",
+    "@elliottcable/bs-gen"
+  ],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bsc-flags": [
+    "-bs-super-errors",
+    "-bs-no-version-header"
+  ],
+  "refmt": 3
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@elliottcable/bs-sedlex",
+  "version": "1.99.4",
+  "description": "An OCaml lexer generator for Unicode",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "@elliottcable/bs-gen": "^0.5.1",
+    "@elliottcable/bs-uchar": "^0.0.2",
+    "bs-platform": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "prepare": "npm run clean && bsb -make-world",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ELLIOTTCABLE/sedlex.git"
+  },
+  "author": "Alain Frisch <alain.frisch@lexifi.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ELLIOTTCABLE/sedlex/issues"
+  },
+  "homepage": "https://github.com/ELLIOTTCABLE/sedlex#readme"
+}

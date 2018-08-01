@@ -16,3 +16,9 @@ src/syntax/ppx_sedlex
 examples/complement
 examples/tokenizer
 examples/subtraction
+
+# BuckleScript
+node_modules
+lib/bs
+lib/ocaml
+*.bs.js
