@@ -26,8 +26,9 @@ jobs:
       env: COMPONENT=ppx
   include:
     - stage: deploy
+      os: linux
       script: npm run prepare:ppx
-      deploy:
+      deploy: &gh-release
         provider: releases
         skip_cleanup: true
         api_key:
@@ -36,6 +37,9 @@ jobs:
         file: dist/*
         on:
           tags: true
+    - os: osx
+      script: npm run prepare:ppx
+      deploy: *gh-release
 
 env:
   global:
