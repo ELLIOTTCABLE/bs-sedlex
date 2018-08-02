@@ -1,6 +1,6 @@
 {
   "name": "@elliottcable/bs-sedlex",
-  "version": "1.99.4",
+  "version": "0.0.1",
   "description": "An OCaml lexer generator for Unicode",
   "main": "index.js",
   "directories": {
