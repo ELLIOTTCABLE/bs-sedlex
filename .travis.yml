@@ -17,6 +17,7 @@ install:
   - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
   - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
 
+script: npm run build:$COMPONENT
 
 jobs:
   fast_finish: true
@@ -24,7 +25,6 @@ jobs:
     - os: osx
       env: COMPONENT=ppx
   include:
-    - script: npm run build:$COMPONENT
     - stage: deploy
       script: npm run prepare:ppx
       deploy:
