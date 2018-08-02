@@ -6,9 +6,11 @@ const pkg = require("../package.json"),
    path = require("path"),
    fs = require("fs"),
    cpy = require("cpy"),
+makeDir = require('make-dir'),
    archiver = require("archiver")
 
 const zipfile = `sedlex-ppx-v${pkg.version}-${process.platform}-${arch()}.zip`,
+   dist_dir = "dist/",
    build_dir = "_build/install/default/lib/sedlex/ppx/",
    zip_dir = "sedlex-ppx/",
    exe = "ppx.exe"
@@ -20,8 +22,9 @@ const zipfile = `sedlex-ppx-v${pkg.version}-${process.platform}-${arch()}.zip`,
    await cpy(path.join(build_dir, exe), zip_dir)
 
    // Create a zip-archive,
-   console.log(path.join(zip_dir, exe) + " -> " + path.join(__dirname, "..", zipfile))
-   const output = fs.createWriteStream(path.join(__dirname, "..", zipfile)),
+   const dist = await makeDir('dist')
+   console.log(path.join(zip_dir, exe) + " -> " + path.join(dist, zipfile))
+   const output = fs.createWriteStream(path.join(dist, zipfile)),
       archive = archiver("zip", { zlib: { level: 9 } })
 
    output.on("close", function() {

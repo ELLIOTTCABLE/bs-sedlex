@@ -26,4 +26,4 @@ lib/ocaml
 *.bs.js
 
 sedlex-ppx/*
-sedlex-ppx-*.zip
+dist/sedlex-ppx-*.zip

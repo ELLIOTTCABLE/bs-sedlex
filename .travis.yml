@@ -1,0 +1,38 @@
+sudo: required
+git:
+  depth: 3
+
+language: node_js
+node_js:
+  - "10"
+
+stages:
+  - test
+  - name: deploy
+    if: branch = master
+
+install:
+  - if [ $COMPONENT = ppx ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
+  - if [ $COMPONENT = ppx ]; then bash -ex .travis-ocaml.sh; fi
+  - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
+
+jobs:
+  include:
+    - script: npm run build:$COMPONENT
+    - stage: deploy
+      script: npm run build:ppx
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key: ...
+        file_glob: true
+        file: dist/*
+        on:
+          tags: true
+
+env:
+  - OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
+  - COMPONENT=runtime
+os:
+  - linux
+  - osx
