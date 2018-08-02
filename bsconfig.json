@@ -1,6 +1,6 @@
 {
   "name": "@elliottcable/bs-sedlex",
-  "version": "0.0.1",
+  "version": "1.99.4",
   "sources": [
     {
        "dir": "src/lib"
