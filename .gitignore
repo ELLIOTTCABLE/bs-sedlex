@@ -24,3 +24,6 @@ node_modules
 lib/bs
 lib/ocaml
 *.bs.js
+
+sedlex-ppx/*
+sedlex-ppx-*.zip

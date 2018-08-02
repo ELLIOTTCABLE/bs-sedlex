@@ -11,10 +11,21 @@
     "@elliottcable/bs-uchar": "^0.0.2",
     "bs-platform": "^4.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "arch": "^2.1.1",
+    "archiver": "^2.1.1",
+    "cpy": "^7.0.1",
+    "release-it": "^7.4.8"
+  },
   "scripts": {
-    "prepare": "npm run clean && bsb -make-world",
-    "clean": "bsb -clean-world",
+    "clean:runtime": "bsb -clean-world",
+    "build:runtime": "bsb -make-world",
+    "clean:ppx": "jbuilder clean",
+    "build:ppx": "jbuilder build",
+    "clean": "npm run clean:runtime && npm run clean:ppx",
+    "build": "npm run build:runtime && npm run build:ppx",
+    "prepare:ppx": "npm run clean:ppx && npm run build:ppx && node package/package.js",
+    "prepare": "npm run clean:runtime && npm run build:runtime",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
