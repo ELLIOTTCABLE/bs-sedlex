@@ -9,9 +9,11 @@ node_js:
 install:
   - if [ $COMPONENT = ppx ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
   - if [ $COMPONENT = ppx ]; then bash -ex .travis-ocaml.sh; fi
-  - if [ $COMPONENT = ppx ]; then opam install --deps-only .; fi
-  - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
-  - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
+  - if [ $COMPONENT = ppx ]; then opam pin add sedlex . --no-action; fi
+  - if [ $COMPONENT = ppx ]; then opam install --deps-only sedlex; fi
+
+  # No `npm ci`, because that would invalidate the node_modules cache
+  - if [ $COMPONENT = runtime ]; then npm install --ignore-scripts; fi
 
 cache:
   directories:
