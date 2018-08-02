@@ -6,11 +6,6 @@ language: node_js
 node_js:
   - "10"
 
-stages:
-  - test
-  - name: deploy
-    if: branch = master
-
 install:
   - if [ $COMPONENT = ppx ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
   - if [ $COMPONENT = ppx ]; then bash -ex .travis-ocaml.sh; fi
@@ -19,20 +14,21 @@ install:
 jobs:
   include:
     - script: npm run build:$COMPONENT
+      env: COMPONENT=runtime
+    - script: npm run build:$COMPONENT
+      env: OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
+
     - stage: deploy
       script: npm run build:ppx
       deploy:
         provider: releases
         skip_cleanup: true
-        api_key: ...
+        api_key: secure: "fujTThvYYBjnTXuorW9Fm3/pbs7lstmONB3cbFxfvuwJZ/SnNYn8DIcvwHHEs4D0QBkeKYiIKw+Oo9RzUPURezho8Eorz2000u1ZZM/77kWO+7gfn9YpFyDcBtw8I0U46MqSxN05zwX6HMDVUEUp6BAKSErP8FKd1OGiaoOVyAuyXWrKLO2PXss6zl4cxHNh0r9jMiYOSCWQIzFoad5sBdl0iY7uWqeL9bs4AMKLtjoKrepxOrdD3/UNGYduY16amV0Lw+6Fuf+LljGtwvrofbFXpfQCHbqHBweaDpDdfX+oqiLvedqzJf3YrZaP7TNK4DqI1f9SJS1O9l/H9A/MOVeMsETctRPHjU6j1QFnTP/39yNhOi1ARsW0N/1JTpTjNk0Y2cg2QVijdSkdV2mbI5xsNG2G9dP7iP9Mhzy6pWDJyO6ilbH3+dZlLfPaxYbFLcXbXna/MN+vi1phtmkI5ut8KqYF7hne5RUibqcj02D95RD9CsjAsG0s5+K5emdE6y3SDnqD95LGNX0y67veg79kGzJF5dm3mgqoE8qHMpwQz5jg6JZBsk63sXoz8U8SAHEvyjo7+kxDcs1vEVlBhGz8Bu8mKtdP2ppS13uxwJU45cejMYA9sokPNktERrblDUPLuAvGr8RHb1n9WH9QKVEbJT0876QTcM5IfHgmyzA="
         file_glob: true
         file: dist/*
         on:
           tags: true
 
-env:
-  - OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
-  - COMPONENT=runtime
 os:
   - linux
   - osx
