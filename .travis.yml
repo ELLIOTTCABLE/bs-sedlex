@@ -10,6 +10,7 @@ install:
   - if [ $COMPONENT = ppx ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
   - if [ $COMPONENT = ppx ]; then bash -ex .travis-ocaml.sh; fi
   - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
+  - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
 
 script: npm run build:$COMPONENT
 
@@ -28,7 +29,7 @@ jobs:
           tags: true
 
 env:
-  - OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
+  - OPAM_VERSION=4.02 OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
   - COMPONENT=runtime
 os:
   - linux
