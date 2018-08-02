@@ -17,6 +17,8 @@ examples/complement
 examples/tokenizer
 examples/subtraction
 
+_opam
+
 # BuckleScript
 node_modules
 lib/bs
