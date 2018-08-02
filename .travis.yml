@@ -14,14 +14,8 @@ install:
   - if [ $COMPONENT = ppx ]; then eval `opam config env`; fi
   - if [ $COMPONENT = ppx ]; then opam config env; opam list; fi
 
-  # No `npm ci`, because that would invalidate the node_modules cache
-  - if [ $COMPONENT = runtime ]; then npm install --ignore-scripts; fi
+  - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
   - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
-
-cache:
-  directories:
-    - node_modules
-    - ~/.opam
 
 script: npm run build:$COMPONENT
 
@@ -40,8 +34,12 @@ jobs:
           tags: true
 
 env:
-  - OCAML_VERSION=4.02 OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
-  - COMPONENT=runtime
+  global:
+    - OCAML_VERSION=4.02
+    - OPAM_SWITCH=4.02.3+buckle-master
+  matrix:
+    - COMPONENT=ppx
+    - COMPONENT=runtime
 os:
   - linux
   - osx
