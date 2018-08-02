@@ -12,6 +12,10 @@ install:
   - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
   - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
 
+cache:
+  directories:
+    - node_modules
+
 script: npm run build:$COMPONENT
 
 jobs:
@@ -29,7 +33,7 @@ jobs:
           tags: true
 
 env:
-  - OPAM_VERSION=4.02 OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
+  - OCAML_VERSION=4.02 OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
   - COMPONENT=runtime
 os:
   - linux
