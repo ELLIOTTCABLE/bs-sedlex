@@ -11,13 +11,10 @@ install:
   - if [ $COMPONENT = ppx ]; then bash -ex .travis-ocaml.sh; fi
   - if [ $COMPONENT = runtime ]; then npm ci --ignore-scripts; fi
 
+script: npm run build:$COMPONENT
+
 jobs:
   include:
-    - script: npm run build:$COMPONENT
-      env: COMPONENT=runtime
-    - script: npm run build:$COMPONENT
-      env: OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
-
     - stage: deploy
       script: npm run build:ppx
       deploy:
@@ -30,6 +27,9 @@ jobs:
         on:
           tags: true
 
+env:
+  - OPAM_SWITCH=4.02.3+buckle-master COMPONENT=ppx
+  - COMPONENT=runtime
 os:
   - linux
   - osx
