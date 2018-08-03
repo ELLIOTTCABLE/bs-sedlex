@@ -3,8 +3,15 @@
   "version": "1.99.4-pre.1",
   "sources": [
     {
-       "dir": "src/lib"
+      "dir": "src/lib"
+    },
+    {
+      "dir": "examples",
+      "type": "dev"
     }
+  ],
+  "ppx-flags": [
+    "@elliottcable/sedlex-ppx/ppx.js"
   ],
   "bs-dependencies": [
     "@elliottcable/bs-uchar",

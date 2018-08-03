@@ -9,9 +9,10 @@
   "dependencies": {
     "@elliottcable/bs-gen": "^0.5.1",
     "@elliottcable/bs-uchar": "^0.0.2",
-    "bs-platform": "^4.0.2"
+    "bs-platform": "^4.0.4"
   },
   "devDependencies": {
+    "@elliottcable/sedlex-ppx": "^1.99.4-pre.1",
     "arch": "^2.1.1",
     "archiver": "^2.1.1",
     "cpy": "^7.0.1",
@@ -31,6 +32,14 @@
     "release-ppx-manual": "./package/release-ppx.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "bsconfig.json",
+    "sedlex.opam",
+    "examples/*",
+    "src/*",
+    "!**/jbuild",
+    "!**/.merlin"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ELLIOTTCABLE/sedlex.git"

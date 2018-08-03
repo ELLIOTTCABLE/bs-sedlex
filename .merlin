@@ -5,7 +5,8 @@ SRC src/**
 B src/**
 
 ####{BSB GENERATED: NO EDIT
-FLG -ppx /Users/ec/Sync/Code/sedlex/node_modules/bs-platform/lib/bsppx.exe
+FLG -ppx /Users/ec/Sync/Code/sedlex/node_modules/@elliottcable/sedlex-ppx/ppx.js
+FLG -ppx /Users/ec/Sync/Code/bucklescript/lib/bsppx.exe
 S /Users/ec/Sync/Code/sedlex/node_modules/bs-platform/lib/ocaml
 B /Users/ec/Sync/Code/sedlex/node_modules/bs-platform/lib/ocaml
 FLG -nostdlib -no-alias-deps -color always
@@ -14,6 +15,8 @@ S /Users/ec/Sync/Code/sedlex/node_modules/@elliottcable/bs-uchar/lib/ocaml
 B /Users/ec/Sync/Code/sedlex/node_modules/@elliottcable/bs-uchar/lib/ocaml
 S /Users/ec/Sync/Code/sedlex/node_modules/@elliottcable/bs-gen/lib/ocaml
 B /Users/ec/Sync/Code/sedlex/node_modules/@elliottcable/bs-gen/lib/ocaml
+S examples
+B lib/bs/examples
 S src/lib
 B lib/bs/src/lib
 ####BSB GENERATED: NO EDIT}
