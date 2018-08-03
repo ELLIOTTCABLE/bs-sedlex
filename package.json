@@ -1,6 +1,6 @@
 {
   "name": "@elliottcable/bs-sedlex",
-  "version": "1.99.4-pre.1",
+  "version": "1.99.4-pre.3",
   "description": "An OCaml lexer generator for Unicode",
   "main": "index.js",
   "directories": {
@@ -12,7 +12,7 @@
     "bs-platform": "^4.0.4"
   },
   "devDependencies": {
-    "@elliottcable/sedlex-ppx": "^1.99.4-pre.1",
+    "@elliottcable/ppx-sedlex": "^1.99.4-pre.3",
     "arch": "^2.1.1",
     "archiver": "^2.1.1",
     "cpy": "^7.0.1",
@@ -23,7 +23,7 @@
     "env": "env",
     "clean:runtime": "bsb -clean-world",
     "build:runtime": "bsb -make-world",
-    "clean:ppx": "jbuilder clean && del-cli sedlex-ppx/",
+    "clean:ppx": "jbuilder clean && del-cli ppx-sedlex/",
     "build:ppx": "jbuilder build",
     "clean": "npm run clean:runtime && npm run clean:ppx",
     "build": "npm run build:runtime && npm run build:ppx",

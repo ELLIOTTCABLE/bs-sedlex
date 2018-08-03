@@ -6,10 +6,10 @@ const pkg = require("../package.json"),
    makeDir = require("make-dir"),
    archiver = require("archiver")
 
-const zipfile = `sedlex-ppx-v${pkg.version}-${process.platform}-${arch()}.zip`,
+const zipfile = `ppx-sedlex-v${pkg.version}-${process.platform}-${arch()}.zip`,
    dist_dir = "dist/",
    build_dir = "_build/install/default/lib/sedlex/ppx/",
-   zip_dir = "sedlex-ppx/",
+   zip_dir = "ppx-sedlex/",
    exe = "ppx.exe"
 
 // FIXME: Does any of these even work on Windows

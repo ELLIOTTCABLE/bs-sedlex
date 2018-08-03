@@ -1,6 +1,6 @@
 {
   "name": "@elliottcable/bs-sedlex",
-  "version": "1.99.4-pre.1",
+  "version": "1.99.4-pre.3",
   "sources": [
     {
       "dir": "src/lib"
@@ -11,7 +11,7 @@
     }
   ],
   "ppx-flags": [
-    "@elliottcable/sedlex-ppx/ppx.js"
+    "@elliottcable/ppx-sedlex/ppx.js"
   ],
   "bs-dependencies": [
     "@elliottcable/bs-uchar",
