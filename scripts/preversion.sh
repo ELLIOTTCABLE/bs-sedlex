@@ -1,5 +1,5 @@
 puts() { printf %s\\n "$@" ;}
-pute() { printf %s\\n "~~ $*" >&2 ;}
+pute() { printf %s\\n "!! $*" >&2 ;}
 argq() { [ $# -gt 0 ] && printf "'%s' " "$@" ;}
 
 
