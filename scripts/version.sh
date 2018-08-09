@@ -56,9 +56,9 @@ fi
 puts ''
 printf %s 'Remove previous artifacts and checksums from ppx-sedlex? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
-   (  cd ./ppx-sedlex && \
-      git rm SHASUM256.txt && \
-      git clean -Xdf ) || exit 127
+   (  cd ./ppx-sedlex &&
+      git clean -Xdf;
+   git rm SHASUM256.txt )
 else
    exit 4
 fi
@@ -163,7 +163,7 @@ if [ "$yn" != "${yn#[Yy]}" ]; then
    mv ppx-sedlex{,.temp} && \
       npm install --package-lock-only && \
       mv ppx-sedlex{.temp,} || exit 127
-   git add package.json package-lock.json
+   git add package.json package-lock.json || exit 127
 else
    exit 4
 fi
@@ -181,7 +181,7 @@ fi
 
 puts ''
 npm pack && \
-rm "bs-sedlex-$new_version.tgz" || exit 127
+   rm "bs-sedlex-$new_version.tgz" || exit 127
 printf %s "Publish 'bs-sedlex@$new_version' to npm? [Y/n] "; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    npm publish || exit 127
