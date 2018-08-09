@@ -33,6 +33,8 @@
     "prepare:ppx": "npm run clean:ppx && npm run build:ppx && node package/package.js",
     "prepare": "npm run clean:runtime && npm run build:runtime",
     "release-ppx-manual": "./package/release-ppx.sh",
+    "preversion": "./package/preversion.sh",
+    "version": "./package/version.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
