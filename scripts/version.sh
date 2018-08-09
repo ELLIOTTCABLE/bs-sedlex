@@ -88,18 +88,18 @@ else
 fi
 
 puts ''
-git show
+git --no-pager show
 printf %s "Tag this changeset as 'v$new_version'? [Y/n] "; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    git tag "v$new_version" --file=- <<MSG || exit 127
 Version $new_version of Sedlexing, packaged for BuckleScript.
 
-Of note, the corresponding version of `ppx-sedlex` is *not* included, due to a recursively mutual dependency. These packages are, however, properly packaged on npm:
+Of note, the corresponding version of \`ppx-sedlex\` is *not* included, due to a recursively mutual dependency. These packages are, however, properly packaged on npm:
 
     npm install --save bs-sedlex@$new_version
     npm install --save-dev ppx-sedlex@$new_version
 
-If you wish to acquire them via git, ensure you manually pull the matching version of my `ppx-sedlex` package! The submodule linkage recorded in the repository will be perpetually one release behind.
+If you wish to acquire them via git, ensure you manually pull the matching version of my \`ppx-sedlex\` package! The submodule linkage recorded in the repository will be perpetually one release behind.
 MSG
 else
    exit 4
