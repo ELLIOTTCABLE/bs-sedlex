@@ -2,17 +2,18 @@ puts() { printf %s\\n "$@" ;}
 pute() { printf %s\\n "~~ $*" >&2 ;}
 argq() { [ $# -gt 0 ] && printf "'%s' " "$@" ;}
 
+alias jq="$(npm prefix)/node_modules/node-jq/bin/jq"
 pj() { jq -er "$1" package.json ;}
 
 
-for EXTDEP in jq; do
-   if ! command -v $EXTDEP >/dev/null; then
-      pute 'You need `'"$EXTDEP"'` to use this script!'
-      pute 'Try: `brew install '"$EXTDEP"'`'
-      printf \\n >&2
-      missing_dep=true
-   fi
-done
+# for EXTDEP in jq; do
+#    if ! command -v $EXTDEP >/dev/null; then
+#       pute 'You need `'"$EXTDEP"'` to use this script!'
+#       pute 'Try: `brew install '"$EXTDEP"'`'
+#       printf \\n >&2
+#       missing_dep=true
+#    fi
+# done
 
 if ! command -v sponge >/dev/null; then
    pute 'You need `sponge` to use this script!'
