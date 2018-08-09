@@ -10,7 +10,8 @@ node_js:
 install:
   - git fetch --tags
 
-  - npm ci --ignore-scripts
+  - npm install ./ppx-sedlex
+  - npm install --ignore-scripts
   - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
 
   - if [ $COMPONENT = ppx ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
@@ -19,9 +20,6 @@ install:
   - if [ $COMPONENT = ppx ]; then opam install -y --deps-only sedlex; fi
   - if [ $COMPONENT = ppx ]; then eval `opam config env`; fi
   - if [ $COMPONENT = ppx ]; then opam config env; opam list; fi
-
-after_install:
-  - if [ $DEBUG_CI = yes ]; then git tag -l; fi
 
 script: npm run build:$COMPONENT
 
@@ -50,6 +48,7 @@ env:
   matrix:
     - COMPONENT=ppx
     - COMPONENT=runtime
+    - COMPONENT=examples
 os:
   - linux
   - osx

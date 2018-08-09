@@ -20,16 +20,16 @@
     "node-jq": "^1.3.1"
   },
   "scripts": {
-    "clean:examples": "cd examples && bsb -clean-world",
-    "build:examples": "cd examples && bsb -make-world",
+    "clean:examples": "npm run clean:ppx && cd examples && bsb -clean-world",
+    "build:examples": "npm run build:ppx && cd examples && bsb -make-world",
     "clean:runtime": "bsb -clean-world",
     "build:runtime": "bsb -make-world",
     "clean:ppx": "jbuilder clean",
-    "build:ppx": "jbuilder build",
+    "build:ppx": "jbuilder build && node scripts/package.js",
     "clean": "npm run clean:runtime && npm run clean:ppx",
     "build": "npm run build:runtime && npm run build:ppx",
-    "prepare:ppx": "npm run clean:ppx && npm run build:ppx && node scripts/package.js",
-    "prepare": "npm run clean:runtime && npm run build:runtime",
+    "prepare:ppx": "npm run clean:ppx && npm run build:ppx",
+    "prepare": "npm run clean && npm run build:runtime",
     "preversion": "./scripts/preversion.sh",
     "version": "./scripts/version.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
