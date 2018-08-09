@@ -1,5 +1,5 @@
 {
-  "name": "@elliottcable/bs-sedlex",
+  "name": "bs-sedlex",
   "version": "1.99.4-pre.4",
   "description": "An OCaml lexer generator for Unicode",
   "main": "index.js",
@@ -41,12 +41,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ELLIOTTCABLE/sedlex.git"
+    "url": "git+https://github.com/ELLIOTTCABLE/bs-sedlex.git"
   },
   "author": "Alain Frisch <alain.frisch@lexifi.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ELLIOTTCABLE/sedlex/issues"
+    "url": "https://github.com/ELLIOTTCABLE/bs-sedlex/issues"
   },
-  "homepage": "https://github.com/ELLIOTTCABLE/sedlex#readme"
+  "homepage": "https://github.com/ELLIOTTCABLE/bs-sedlex#readme"
 }

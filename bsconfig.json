@@ -1,5 +1,5 @@
 {
-  "name": "@elliottcable/bs-sedlex",
+  "name": "bs-sedlex",
   "version": "1.99.4-pre.4",
   "sources": [
     {
@@ -11,7 +11,7 @@
     }
   ],
   "ppx-flags": [
-    "@elliottcable/ppx-sedlex/ppx.js"
+    "ppx-sedlex/ppx.js"
   ],
   "bs-dependencies": [
     "@elliottcable/bs-uchar",
