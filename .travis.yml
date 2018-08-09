@@ -6,12 +6,10 @@ language: node_js
 node_js:
   - "10"
 
-before_install: |
-  if [ $DEBUG_CI = yes ]; then
-    git tag -l;
-  fi
 
 install:
+  - git fetch --tags
+
   - npm ci --ignore-scripts
   - if [ $COMPONENT = runtime ]; then npm install bs-platform; fi
 
@@ -21,6 +19,9 @@ install:
   - if [ $COMPONENT = ppx ]; then opam install -y --deps-only sedlex; fi
   - if [ $COMPONENT = ppx ]; then eval `opam config env`; fi
   - if [ $COMPONENT = ppx ]; then opam config env; opam list; fi
+
+after_install:
+  - if [ $DEBUG_CI = yes ]; then git tag -l; fi
 
 script: npm run build:$COMPONENT
 
