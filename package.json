@@ -30,11 +30,10 @@
     "build:ppx": "jbuilder build",
     "clean": "npm run clean:runtime && npm run clean:ppx",
     "build": "npm run build:runtime && npm run build:ppx",
-    "prepare:ppx": "npm run clean:ppx && npm run build:ppx && node package/package.js",
+    "prepare:ppx": "npm run clean:ppx && npm run build:ppx && node scripts/package.js",
     "prepare": "npm run clean:runtime && npm run build:runtime",
-    "release-ppx-manual": "./package/release-ppx.sh",
-    "preversion": "./package/preversion.sh",
-    "version": "./package/version.sh",
+    "preversion": "./scripts/preversion.sh",
+    "version": "./scripts/version.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
