@@ -35,7 +35,7 @@ fi
 
 printf %s 'Update bsconfig.json to match? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
-   jqinplace ".version = \"$new_version\"" bsconfig.json
+   jqinplace ".version = \"$new_version\"" bsconfig.json || exit 127
 else
    exit 4
 fi
@@ -43,9 +43,8 @@ fi
 
 printf %s 'Kick off the publishing process by committing this new version? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
-   git add package.json bsconfig.json
-   git checkout master
-   git commit -m "(- rel NF) Prep for v$new_version"
+   git add package.json bsconfig.json || exit 127
+   git commit -m "(- rel NF) Prep for v$new_version" || exit 127
 else
    exit 4
 fi
@@ -53,7 +52,7 @@ fi
 
 printf %s 'Push these changes to GitHub? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
-   git push master
+   git push master || exit 127
 else
    exit 4
 fi
@@ -62,7 +61,7 @@ fi
 printf %s 'Bump ppx-sedlex version to match? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    (  cd ./ppx-sedlex && \
-      npm version --no-git-tag-version "$new_version" )
+      npm version --no-git-tag-version "$new_version" ) || exit 127
 else
    exit 4
 fi
