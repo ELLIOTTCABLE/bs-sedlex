@@ -10,7 +10,7 @@
 *.cmxa
 *.exe
 *.install
-*.merlin
+**/*.merlin
 _build
 libdoc
 src/syntax/ppx_sedlex

@@ -19,7 +19,7 @@ const zipfile = `ppx-sedlex-v${pkg.version}-${process.platform}-${arch()}.zip`,
    await cpy(path.join(build_dir, exe), zip_dir)
 
    // Create a zip-archive,
-   const dist = await makeDir("dist")
+   const dist = await makeDir(dist_dir)
    console.log(path.join(zip_dir, exe) + " -> " + path.join(dist, zipfile))
    const output = fs.createWriteStream(path.join(dist, zipfile)),
       archive = archiver("zip", { zlib: { level: 9 } })
