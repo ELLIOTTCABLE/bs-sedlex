@@ -110,8 +110,9 @@ puts ''
 printf %s 'Push these changes to GitHub, so Travis can start building the artifacts? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    (  cd ./ppx-sedlex && \
-      git push --tags ) || exit 127
+      git push ) || exit 127
    git push --tags || exit 127
+   git push || exit 127
 else
    exit 4
 fi

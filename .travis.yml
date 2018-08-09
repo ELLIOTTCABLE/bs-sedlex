@@ -37,17 +37,8 @@ jobs:
           secure: W+hmJYg7+pCybW+xWSHNnDIrJ0a02VDaDw4qP5Jh7YP9v5hmrTDU0V5ZvSnlLgUvR2a1nn1GJnEsuDhJKqhqWLrVjGHs/fNzVrvZQjdCkEHSsQUlzm0LByBqMI5qxEa2GnUZesAyai+J6J4mrkAQfgHOMgtaOAMkcG2InpSy6ZG+QQmX/hVE/8tD2OU1abhgxmcHVCmPA8JT/GZhFe8OP+dMEI/ZC2Z+ru6mQ10oYjM/2ah3OuagjLY0i2z9Kpr0hR3naq9Ve4AGvosKK8kDuyK4Hsj6MgjFd9DZWsJW1iGVhaUgMEIPHy+TDW2CXTa7kjJ5qaGPBh3Mn9Cy/qCoGgTMspn/ldFyTOJSVERyo5ccA/S/QJLqtpkHZ1X2Xh5WF2b5l2mpAU9jHqLbJSfqavB8mS5AApvuVl+ahhJ8+4zsd9BgTpb7L0938Yky3LHndmMcXY6j79hvLoe3mfQHZrckP4KsnsVyD0b6dcSXLOfOO3sVQhJHstlkDTPQxuEqLGxuxMHW1UdLvDr0gJXncET3/mxitHjCwCEYSDTCffE54zGPSlHZP7Nd63N+lMMR7HZCE7GCDx0UzC9aKz4Ta3qOCZffByrh9wRcG50nXvFV/dt3OAPEebI9HfymmwqoulTHpSsg52AfgyEp75AORpdZeTtJW3JffXHf7gPT/H8=
         file_glob: true
         file: dist/*
-        # Only deploy the build if:
-        # 1. This push included the master branch (aka the git-flow method)
-        # 2. There **isn't** already a git tag for the version recorded in package.json
-        #
-        # This implies that somebody `npm version`'d a new release, committed that change, and
-        # pushed it to master. Presumably, they're waiting for Travis (and AppVeyor) to deploy
-        # artifacts to GitHub, so the release can be checksummed, `npm pack`ed, and `git tag`ged.
         on:
-          branch: master
-          condition: >-
-            -z "$(git tag -l "v$(node -p 'require("./package.json").version')")"
+          tags: true
     - os: osx
       script: npm run prepare:ppx
       deploy: *gh-release
