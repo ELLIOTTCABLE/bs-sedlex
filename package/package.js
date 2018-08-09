@@ -9,7 +9,7 @@ const pkg = require("../package.json"),
 const zipfile = `ppx-sedlex-v${pkg.version}-${process.platform}-${arch()}.zip`,
    dist_dir = "dist/",
    build_dir = "_build/install/default/lib/sedlex/ppx/",
-   zip_dir = "ppx-sedlex/",
+   zip_dir = "ppx/",
    exe = "ppx.exe"
 
 // FIXME: Does any of these even work on Windows

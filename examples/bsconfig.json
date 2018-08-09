@@ -1,10 +1,17 @@
 {
-  "name": "bs-sedlex",
+  "name": "bs-sedlex-examples",
   "version": "1.99.4-pre.5",
   "sources": [
     {
-      "dir": "src/lib"
+      "dir": "../src/lib"
+    },
+    {
+      "dir": "./",
+      "type": "dev"
     }
+  ],
+  "ppx-flags": [
+    "ppx-sedlex/ppx.js"
   ],
   "bs-dependencies": [
     "@elliottcable/bs-uchar",

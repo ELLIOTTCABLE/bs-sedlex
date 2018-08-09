@@ -3,6 +3,7 @@
 *.cma
 *.cmi
 *.cmt
+*.cmti
 *.a
 *.o
 *.cmx
@@ -22,9 +23,12 @@ _opam
 
 # BuckleScript
 node_modules
-lib/bs
-lib/ocaml
+**/lib/bs
+**/lib/ocaml
+*.cmj
 *.bs.js
+*.mlast*
+*.mliast*
 
-sedlex-ppx/*
+ppx/
 dist/sedlex-ppx-*.zip
