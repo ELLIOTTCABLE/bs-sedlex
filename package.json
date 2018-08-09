@@ -39,8 +39,12 @@
   "files": [
     "bsconfig.json",
     "sedlex.opam",
-    "examples/*",
-    "src/*",
+    "examples/**/*.ml",
+    "examples/**/*.mli",
+    "examples/**/*.bs.js",
+    "src/**/*.ml",
+    "src/**/*.mli",
+    "src/**/*.bs.js",
     "!**/jbuild",
     "!**/.merlin"
   ],
