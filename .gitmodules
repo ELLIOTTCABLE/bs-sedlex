@@ -1,0 +1,3 @@
+[submodule "ppx-sedlex"]
+	path = ppx-sedlex
+	url = https://github.com/ELLIOTTCABLE/ppx-sedlex.git
