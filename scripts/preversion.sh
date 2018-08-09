@@ -27,3 +27,20 @@ if [ -n "$missing_dep" ]; then exit 3; fi
       exit 2
    fi
 )
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" != "master" ]; then
+   pute "You're on a topic branch, '$branch'."
+   puts '' >&2
+
+   pute "You need to merge your work into 'master' before you can version-bump,"
+   pute 'commit, and push.'
+   puts '' >&2
+
+   pute 'Try:'
+   puts '' >&2
+   puts '      git checkout master' >&2
+   puts "      git merge --ff '$branch'" >&2
+   puts '' >&2
+   exit 2
+fi
