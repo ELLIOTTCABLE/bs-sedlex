@@ -10,8 +10,7 @@ node_js:
 install:
   - git fetch --tags
 
-  - npm install ./ppx-sedlex
-  - npm install --ignore-scripts
+  - npm install --ignore-scripts ./ppx-sedlex
   - if [ $COMPONENT != ppx ]; then npm install bs-platform; fi
 
   - if [ $COMPONENT != runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
