@@ -52,7 +52,7 @@ fi
 
 printf %s 'Push these changes to GitHub? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
-   git push master || exit 127
+   git push || exit 127
 else
    exit 4
 fi
