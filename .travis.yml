@@ -20,10 +20,6 @@ install:
 script: npm run build:$COMPONENT
 
 jobs:
-  fast_finish: true
-  allow_failures:
-    - os: osx
-      env: COMPONENT=ppx
   include:
     - stage: deploy
       os: linux
