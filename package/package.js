@@ -1,3 +1,5 @@
+// This is run on Travis, and presumably eventually AppVeyor, builds. It's supposed to be as
+// cross-platform as possible, unlike the adjacent release-script, which I only care if *I* can run.
 const pkg = require("../package.json"),
    arch = require("arch"),
    path = require("path"),
