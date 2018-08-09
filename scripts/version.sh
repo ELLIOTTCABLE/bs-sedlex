@@ -134,7 +134,7 @@ puts ''
 (  cd ./ppx-sedlex && \
    git add SHASUM256.txt ) || exit 127
 (  cd ./ppx-sedlex && \
-   git diff )
+   git --no-pager diff --cached )
 printf %s 'Success! Now, commit the updated checksum to ppx-sedlex, and tag? [Y/n] '; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    (  cd ./ppx-sedlex && \
