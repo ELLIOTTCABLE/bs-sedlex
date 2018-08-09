@@ -31,4 +31,4 @@ node_modules
 *.mliast*
 
 ppx/
-dist/sedlex-ppx-*.zip
+dist/ppx-sedlex-*.zip

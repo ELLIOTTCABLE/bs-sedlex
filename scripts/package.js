@@ -10,19 +10,24 @@ const pkg = require("../package.json"),
 
 const zipfile = `ppx-sedlex-v${pkg.version}-${process.platform}-${arch()}.zip`,
    dist_dir = "dist/",
+   submodule_ppx_dir = `ppx-sedlex/ppx-sedlex-v${pkg.version}-${process.platform}-${arch()}/`
    build_dir = "_build/install/default/lib/sedlex/ppx/",
    zip_dir = "ppx/",
    exe = "ppx.exe"
 
 // FIXME: Does any of these even work on Windows
 ;(async () => {
-   // Copy the executable,
+   // Copy the executable to the submodule,
+   console.log(path.join(build_dir, exe) + " -> " + submodule_ppx_dir)
+   await cpy(path.join(build_dir, exe), submodule_ppx_dir)
+
+   // ... and again to the zip-directory,
    console.log(path.join(build_dir, exe) + " -> " + zip_dir)
    await cpy(path.join(build_dir, exe), zip_dir)
 
    // Create a zip-archive,
    const dist = await makeDir(dist_dir)
-   console.log(path.join(zip_dir, exe) + " -> " + path.join(dist, zipfile))
+   console.log(path.join(zip_dir, exe) + " >>> " + path.join(dist, zipfile))
    const output = fs.createWriteStream(path.join(dist, zipfile)),
       archive = archiver("zip", { zlib: { level: 9 } })
 
