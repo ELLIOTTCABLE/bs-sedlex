@@ -181,6 +181,17 @@ else
    exit 4
 fi
 
+puts ''
+printf %s 'Push the final, linked commits upstream? [Y/n] '; read yn
+if [ "$yn" != "${yn#[Yy]}" ]; then
+   (  cd ./ppx-sedlex && \
+      git push && \
+      git push --tags ) || exit 127
+   git push || exit 127
+else
+   exit 4
+fi
+
 
 puts ''
 npm pack && \
