@@ -25,8 +25,8 @@
     "build:examples": "npm run build:ppx && cd examples && bsb -make-world",
     "clean:runtime": "bsb -clean-world",
     "build:runtime": "bsb -make-world",
-    "clean:ppx": "jbuilder clean",
-    "build:ppx": "jbuilder build && node scripts/package.js",
+    "clean:ppx": "dune clean",
+    "build:ppx": "dune build && node scripts/package.js",
     "clean": "npm run clean:runtime && npm run clean:ppx",
     "build": "npm run build:runtime && npm run build:ppx",
     "prepare:ppx": "npm run clean:ppx && npm run build:ppx",
@@ -44,7 +44,7 @@
     "src/**/*.ml",
     "src/**/*.mli",
     "src/**/*.bs.js",
-    "!**/jbuild",
+    "!**/dune",
     "!**/.merlin"
   ],
   "repository": {
