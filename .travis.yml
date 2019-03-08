@@ -32,6 +32,8 @@ jobs:
       script: npm run prepare:ppx
       deploy: &gh-release
         provider: releases
+        on:
+          tags: true
         skip_cleanup: true
         api_key:
           secure: FXlYB0nsXDE2DXf+8zAEH7j2pnRxRIHiHZFN0pCDQqTkfOSKHIfhZ1+L0JD8vkV7GtXDBYAiFmVlYZyPTOWSDHKTWROdpe6qsJsV5EJXmREIjmgMUI14SDJITtyXSE7cezPVtKdjwprJtZUHIvKPbFYscM0DF0ayT0NwFqz01aE/DIQk2AWrzcaDzNSnCsYYoJsDtetOLmWXeABHV/ohfrEF1bfurqk8hSLdhDirE7xZm2gr+KgY8tYP3geU4hqVX4tk9xydnxiWGj3N7Z7CBmOLAXDm2sXJT8fjAN/DaorO7EPEZQw4tScmTigGQKrJ0jvNtJ6QpvG3sthFyxpkuhvW0+YGNdco9PcK8aoJGztwbi0+Fc54CfIUGtN/hxTsGWopUOGAAV3R0o91TXB25oNZlzzeSVZx2tbyDHqeP1w3l/9/bLbejBQcgBh0vEx6QDsCZT/c8i/QVOozZD6y50BmaSRdPu/QtAs3IU7cQLCz42l2IYH3gDTjpy1zpblZaHabQ6xfzl95PiodXKekHblypgOWgc+5QNuUo1+kXqIa84KlV4G67EOFKCR+QvnHpVgX9PAnw5K9G4Fp6Uc5og13verN/phSTeW5R08AGx9T5ieEz39g4FrwZSnQzqzbWBwygt9NHHiauUxETI44n3haLgFj0gQVnshZWn4ZSsg=
