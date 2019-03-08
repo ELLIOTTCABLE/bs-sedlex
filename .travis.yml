@@ -9,19 +9,20 @@ node_js:
 cache:
   directories:
   - $HOME/.opam
+  - $HOME/.npm
 
 install:
   - git fetch --tags
 
-  - npm install --ignore-scripts
-  - npm install --ignore-scripts ./ppx-sedlex
+  - npm ci $VERBOSE_FLAG --ignore-scripts
+  - npm install $VERBOSE_FLAG --ignore-scripts --no-save ./ppx-sedlex
 
   - if [ $TASK != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
   - if [ $TASK != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
   - if [ $TASK != ci:runtime ]; then opam pin -y -n add sedlex .; fi
   - if [ $TASK != ci:runtime ]; then opam install -y --deps-only sedlex; fi
   - if [ $TASK != ci:runtime ]; then eval `opam config env`; fi
-  - if [ $TASK != ci:runtime ] && [ -n $DEBUG_CI ]; then opam config env; opam list; fi
+  - if [ $TASK != ci:runtime ] && [ -n $VERBOSE_FLAG ]; then opam config env; opam list; fi
 
 script: npm run $TASK
 
