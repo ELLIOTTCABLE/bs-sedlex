@@ -33,7 +33,9 @@
     "prepare": "npm run clean && npm run build:runtime",
     "preversion": "./scripts/preversion.sh",
     "version": "./scripts/version.sh",
-    "test": "npm run build:examples && foreach -g 'examples/*.bs.js' -x 'node #{path}'"
+    "test": "foreach -g 'examples/*.bs.js' -x 'node #{path}'",
+    "ci:ppx-examples-test": "npm run build:examples && npm run test",
+    "ci:runtime": "npm run build:runtime"
   },
   "files": [
     "bsconfig.json",

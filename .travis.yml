@@ -13,17 +13,17 @@ cache:
 install:
   - git fetch --tags
 
+  - npm install --ignore-scripts
   - npm install --ignore-scripts ./ppx-sedlex
-  - if [ $COMPONENT != ppx ]; then npm install bs-platform; fi
 
-  - if [ $COMPONENT != runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
-  - if [ $COMPONENT != runtime ]; then bash -ex .travis-ocaml.sh; fi
-  - if [ $COMPONENT != runtime ]; then opam pin -y -n add sedlex .; fi
-  - if [ $COMPONENT != runtime ]; then opam install -y --deps-only sedlex; fi
-  - if [ $COMPONENT != runtime ]; then eval `opam config env`; fi
-  - if [ $COMPONENT != runtime ]; then opam config env; opam list; fi
+  - if [ $TASK != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
+  - if [ $TASK != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
+  - if [ $TASK != ci:runtime ]; then opam pin -y -n add sedlex .; fi
+  - if [ $TASK != ci:runtime ]; then opam install -y --deps-only sedlex; fi
+  - if [ $TASK != ci:runtime ]; then eval `opam config env`; fi
+  - if [ $TASK != ci:runtime ] && [ -n $DEBUG_CI ]; then opam config env; opam list; fi
 
-script: npm run build:$COMPONENT
+script: npm run $TASK
 
 jobs:
   include:
@@ -50,13 +50,8 @@ env:
     - OCAML_VERSION=4.02
     - OPAM_SWITCH=4.02.3+buckle-master
   matrix:
-    - COMPONENT=ppx
-    - COMPONENT=runtime
-    - COMPONENT=examples
-
-matrix:
-  allow_failures:
-    - env: COMPONENT=examples
+    - TASK=ci:ppx-examples-test
+    - TASK=ci:runtime
 
 os:
   - linux
