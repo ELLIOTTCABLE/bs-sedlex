@@ -48,6 +48,11 @@ env:
     - COMPONENT=ppx
     - COMPONENT=runtime
     - COMPONENT=examples
+
+matrix:
+  allow_failures:
+    - env: COMPONENT=examples
+
 os:
   - linux
   - osx
