@@ -15,9 +15,10 @@
     "arch": "^2.1.1",
     "archiver": "^2.1.1",
     "cpy": "^7.0.1",
+    "foreach-cli": "^1.8.1",
     "make-dir": "^1.3.0",
-    "ppx-sedlex": "=1.99.4",
-    "node-jq": "^1.3.1"
+    "node-jq": "^1.3.1",
+    "ppx-sedlex": "=1.99.4"
   },
   "scripts": {
     "clean:examples": "npm run clean:ppx && cd examples && bsb -clean-world",
@@ -32,7 +33,7 @@
     "prepare": "npm run clean && npm run build:runtime",
     "preversion": "./scripts/preversion.sh",
     "version": "./scripts/version.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build:examples && foreach -g 'examples/*.bs.js' -x 'node #{path}'"
   },
   "files": [
     "bsconfig.json",
