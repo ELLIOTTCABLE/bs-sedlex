@@ -1,10 +1,17 @@
 # sedlex
 
+[![Build Status](https://travis-ci.com/ocaml-community/sedlex.svg?branch=master)](https://travis-ci.com/ocaml-community/sedlex)
+
 Unicode-friendly lexer generator for OCaml.
 
 This package is licensed by LexiFi under the terms of the MIT license.
 
-Contact: alain.frisch@lexifi.com
+sedlex was originally written by Alain Frisch
+<alain.frisch@lexifi.com> and is now maintained as part of the
+ocaml-community repositories on github.
+
+## API
+The API is documented [here](https://ocaml-community.github.io/sedlex).
 
 ## Overview
 
@@ -172,7 +179,7 @@ The quick way:
 
 
 Otherwise, the first thing to do is to compile and install sedlex.
-You need a recent version of OCaml and jbuilder.
+You need a recent version of OCaml and [dune](https://dune.build/).
 
 ```
   make
@@ -214,6 +221,9 @@ source file through -ppx rewriter ppx_sedlex. Moreover, you need to
 link the application with the runtime support library for sedlex
 (sedlexing.cma / sedlexing.cmxa).
 
+## Examples
+
+The `examples/` subdirectory contains several samples of sedlex in use.
 
 ## Contributors
 
@@ -222,4 +232,4 @@ link the application with the runtime support library for sedlex
 - Peter Zotov:
   - improvements to the build system
   - switched parts of ppx_sedlex to using concrete syntax (with ppx_metaquot)
-- Steffen Smolka: port to jbuilder
+- Steffen Smolka: port to dune
