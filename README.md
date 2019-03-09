@@ -1,3 +1,123 @@
+# `bs-sedlex`
+
+> **For details on purpose, usage, and API of sedlex, [scroll down](#sedlex).** These sections added
+> at the top is specific to ways that installation and usage of the `bs-sedlex` distribution
+> **differ** from using the upstream release.
+
+This repository contains a fork of the [sedlex][] lexer-generator tooling for OCaml-family
+languages, packaged for use in projects utilizing [BuckleScript][] (an OCaml-to-JavaScript compiler)
+and [ReasonML][] (an alternative OCaml syntax targeting that compiler.)
+
+Care is taken in this project to publish pre-compiled binaries of the [ppx
+syntax-extension](#lexer-specifications) component necessary to use sedlex in practice. These are
+published to npm as the separate package [`ppx-sedlex`][ppx-sedlex], versioned in lockstep with the
+parent `bs-sedlex` package. Instructions for *enabling* this extension in your BuckleScript
+configuration-file, `bsconfig.json`, are included below. Don't miss them!
+
+   [sedlex]: <https://github.com/ocaml-community/sedlex>
+      "The upstream distribution of sedlex, maintained by the OCaml community"
+   [BuckleScript]: <https://bucklescript.github.io/>
+   [ReasonML]: <https://reasonml.github.io/>
+   [ppx-sedlex]: <https://www.npmjs.com/package/ppx-sedlex>
+      "The native syntax-extension component of bs-sedlex, published separately to npm"
+
+## Installation in BuckleScript projects
+
+You can safely ignore the installation instructions in the upstream README reproduced below, when
+compiling to JS using BuckleScript. Instead:
+
+1. Install this fork through [npm][] (this will automatically install `ppx-sedlex` as well, as it's
+   a transitive dependency):
+
+   ```sh
+   $ npm install --save bs-sedlex
+   ```
+
+2. Manually add the runtime package, `bs-sedlex`, to your `bsconfig.json`'s
+   `bs-dependencies` field:
+
+   ```diff
+    "bs-dependencies": [
+      ...
+   +  "bs-sedlex"
+    ],
+   ```
+
+3. Additionally tell BuckleScript to apply the `ppx-sedlex` syntax-transformer over your source-code
+   by adding a `ppx-flags` field at the root level of the same `bsconfig.json`. (Note that,
+   unintuitively, this is *not* a relative path; it follows the format `package-name/file-path`.)
+
+   ```diff
+    "bs-dependencies": [
+      ...
+      "bs-sedlex"
+    ],
+   +"ppx-flags": [
+   +   "ppx-sedlex/ppx.js"
+   +],
+   ```
+
+4. Write blazing-fast, type-safe, and Unicode-aware / multilingual lexers and parsers galore!
+
+   [npm]: <https://www.npmjs.com/>
+      "npm, the package-manager for the JavaScript ecosystem"
+
+## Parser-writing tips from a fellow JavaScripter
+
+I'm dogfooding this port on a parsing-project in JavaScript & ML (Excmd.js, <https://excmd.js.org>).
+Feel free to refer to that for a real-world example of compiling industrial-strength OCaml parsing
+tooling down to JavaScript for the web. Some takeaways follow:
+
+ - Use [Menhir][] for parser-generation. Seriously. It's got [spectacularly clear
+   docs][menhir-docs], an [entire chapter in Real World OCaml][menhir-rwo] dedicated to it, and a
+   laundry-list of advanced features — everything from automated tooling that *explains* reported
+   parsing-conflicts to you, neophyte language-developer; to [an incremental-parsing
+   API][menhir-incremental] allowing you to implement extremely advanced error-recovery and
+   introspection/reporting tools.
+
+ - If you want to take that advice, unfortunately, there's no cool, easy port to JavaScript for you,
+   like this one for Sedlex. 😉 (Maybe I'll publish one someday!) Until one exists, you'll have to
+   maintain a dualistic build-system that uses the standard OCaml tooling and build-system (i.e.
+   [opam][] and <https://dune.build>) to produce the `.ml` parsing-automaton, and then feed that
+   into the BuckleScript build. Maybe you can [glean][excmd-bsconf-generators] some
+   [ideas][excmd-bsconf-sources] from [my experiences][excmd-dune-libraries] here.
+
+ - A major selling-point of sedlex is the deep and thorough Unicode compatibility. Use it! [I
+   suggest][uax-notes] reading through the Unicode Consortium's documentation on the topics, known
+   as Unicode Standard Annex №. 31, or [UAX#31][uax31]. It goes into more detail than you could ever
+   want to know about a vast number of topics. Get this stuff right!
+
+ - I (ELLIOTTCABLE) am also very happy to help with any of these topics — I spent a lot of time and
+   effort figuring this out; and although it'll hopefully improve as the BuckleScript community
+   grows, until then, there's a lot of minutae to get just right. I'm active on both the
+   [OCaml][ocaml-discord] and [ReasonML][reasonml-discord] Discord servers (why there are *two*, I
+   cannot fathom); as well as on the Freenode IRC server, in both `#ocaml` and
+   [`#ELLIOTTCABLE`](http://ell.io/irc). Feel free to reach out if you just want to chat about these
+   topics, or to get more formal support!
+
+   [Menhir]: <http://gallium.inria.fr/~fpottier/menhir/> "The Menhir parser-generator for OCaml"
+   [menhir-docs]: <http://gallium.inria.fr/~fpottier/menhir/manual.html>
+      "HTML version of Menhir's in-depth documentation"
+   [menhir-rwo]: <https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html>
+      "Real World OCaml - Chapter 16: Parsing with OCamllex and Menhir"
+   [menhir-incremental]: <http://gallium.inria.fr/~fpottier/menhir/manual.html#sec57>
+      "Menhir manual: the Incremental API"
+   [opam]: <https://opam.ocaml.org/> "opam, the OCaml package-manager"
+   [excmd-bsconf-generators]: <https://github.com/ELLIOTTCABLE/excmd.js/blob/63ac20b5/bsconfig.json#L21-L42>
+      "Setting up the undocumented 'generators' configuration in bsb to invoke Menhir"
+   [excmd-bsconf-sources]: <https://github.com/ELLIOTTCABLE/excmd.js/blob/63ac20b5/bsconfig.json#L5-L13>
+      "Using the undocumented 'generators' configuration in bsb to produce a parser-automaton"
+   [excmd-dune-libraries]: <https://github.com/ELLIOTTCABLE/excmd.js/blob/63ac20b5/src/dune#L4>
+      "Ensuring menhirLib is reachable from the OCaml side"
+   [uax-notes]: <https://github.com/ELLIOTTCABLE/excmd.js#internationalization-concerns-wrt-lexing>
+      "My own notes on UAX#31 adherence with regards to lexing and sedlex"
+   [uax31]: <http://unicode.org/reports/tr31/>
+      "Unicode® Standard Annex #31: Unicode Identifier and Pattern Syntax"
+   [ocaml-discord]: <https://discord.gg/cCYQbqN>
+      "Official OCaml Discord server"
+   [reasonml-discord]: <https://discordapp.com/invite/reasonml>
+      "Official ReasonML Discord server"
+
 # sedlex
 
 [![Build Status](https://travis-ci.com/ocaml-community/sedlex.svg?branch=master)](https://travis-ci.com/ocaml-community/sedlex)
@@ -233,3 +353,4 @@ The `examples/` subdirectory contains several samples of sedlex in use.
   - improvements to the build system
   - switched parts of ppx_sedlex to using concrete syntax (with ppx_metaquot)
 - Steffen Smolka: port to dune
+- Elliott Cable: publish this BuckleScript-compatible fork on npm
