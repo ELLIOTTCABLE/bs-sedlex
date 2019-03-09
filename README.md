@@ -1,4 +1,5 @@
-# `bs-sedlex`
+<h1><img alt='Maintenance status: maintained' src="https://img.shields.io/maintenance/yes/2019.svg?style=popout-square&logo=verizon&logoColor=000000" align=right><a href="https://github.com/ELLIOTTCABLE/bs-sedlex/releases" align=right><img alt='Latest npm release' src="https://img.shields.io/npm/v/bs-sedlex.svg?style=popout-square&logo=npm&label=bs%20version" align=right></a><a target="_blank" href="https://travis-ci.com/ELLIOTTCABLE/bs-sedlex" align=right><img alt='Build status on Travis-CI' src="https://img.shields.io/travis/com/ELLIOTTCABLE/bs-sedlex.svg?style=popout-square&logo=travis&label=bs%20build" align=right></a><a target="_blank" href="https://twitter.com/intent/follow?screen_name=ELLIOTTCABLE" align=right><img alt='Follow my work on Twitter' src="https://img.shields.io/twitter/follow/ELLIOTTCABLE.svg?style=popout-square&logo=twitter&label=%40ELLIOTTCABLE&color=blue" align=right></a>
+<code>bs-sedlex</code></h1>
 
 > **For details on purpose, usage, and API of sedlex, [scroll down](#sedlex).** These sections added
 > at the top is specific to ways that installation and usage of the `bs-sedlex` distribution
