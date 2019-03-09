@@ -22,7 +22,7 @@ install:
   - npm ci --ignore-scripts
   - |
     if [ -n $BS_PLATFORM ]; then
-      npm install --ignore-scripts --no-save "bs-platform@$BS_PLATFORM"
+      npm install --no-save "bs-platform@$BS_PLATFORM"
     else
       npm rebuild bs-platform
     fi
