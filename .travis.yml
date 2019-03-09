@@ -37,13 +37,13 @@ install:
   # `postinstall` script of the one we installed above.
   - |
     if [ -n "$BS_PLATFORM" ]; then
-      npm install --no-save "bs-platform@$BS_PLATFORM"
+      npm install "bs-platform@$BS_PLATFORM"
     else
       npm rebuild bs-platform
     fi
 
   # Finally, we ‘install’ our own local `ppx-sedlex` version.
-  - npm install --ignore-scripts --no-save ./ppx-sedlex
+  - npm install ./ppx-sedlex
 
 script: npm run $TASK
 
