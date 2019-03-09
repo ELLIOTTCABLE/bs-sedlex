@@ -25,8 +25,16 @@ install:
   # can set $VERBOSE to some value inside Travis's configuration, and then hit "rebuild".)
   - if [ -n "$VERBOSE" ]; then npm config set loglevel verbose; fi
 
-  # Install dependencies, and then either install or build bs-platform
+  # Install npm dependencies, but avoid invoking our own `prepare` script
   - npm ci --ignore-scripts
+
+  # (A horrible hack is necessary here, with which we *manually* apply any `postinstall` scripts of
+  # transitive dependencies. Yuck.)
+  # See: <https://npm.community/t/ignore-scripts-ignores-all-scripts/1403/10>
+  - npm rebuild node-jq
+
+  # Now we either select a particular `bs-platform` to install, or manually process the
+  # `postinstall` script of the one we installed above.
   - |
     if [ -n "$BS_PLATFORM" ]; then
       npm install --no-save "bs-platform@$BS_PLATFORM"
@@ -34,6 +42,7 @@ install:
       npm rebuild bs-platform
     fi
 
+  # Finally, we ‘install’ our own local `ppx-sedlex` version.
   - npm install --ignore-scripts --no-save ./ppx-sedlex
 
 script: npm run $TASK
