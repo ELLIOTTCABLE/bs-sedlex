@@ -163,9 +163,9 @@ puts ''
 printf %s "Update superproject's dependency on ppx-sedlex? [Y/n] "; read yn
 if [ "$yn" != "${yn#[Yy]}" ]; then
    jqinplace '.devDependencies["ppx-sedlex"] = "=" + .version' package.json || exit 127
-   mv ppx-sedlex{,.temp} && \
+   rm -rf node_modules/ppx-sedlex && \
       npm install --package-lock-only && \
-      mv ppx-sedlex{.temp,} || exit 127
+      ln -s ../ppx-sedlex node_modules/ppx-sedlex || exit 127
    git add package.json package-lock.json || exit 127
 else
    exit 4
