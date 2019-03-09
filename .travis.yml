@@ -14,6 +14,13 @@ cache:
 install:
   - git fetch --tags
 
+  - if [ $TASK != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
+  - if [ $TASK != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
+  - if [ $TASK != ci:runtime ]; then opam pin -y -n add sedlex .; fi
+  - if [ $TASK != ci:runtime ]; then opam install -y --deps-only sedlex; fi
+  - if [ $TASK != ci:runtime ]; then eval `opam config env`; fi
+  - if [ $TASK != ci:runtime ] && [ -n $VERBOSE ]; then opam config env; opam list; fi
+
   # Enable configurable debugging without adding new commits. (If something goes wrong, you
   # can set $VERBOSE to some value inside Travis's configuration, and then hit "rebuild".)
   - if [ -n $VERBOSE ]; then npm config set loglevel warn; fi
@@ -28,13 +35,6 @@ install:
     fi
 
   - npm install --ignore-scripts --no-save ./ppx-sedlex
-
-  - if [ $TASK != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
-  - if [ $TASK != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
-  - if [ $TASK != ci:runtime ]; then opam pin -y -n add sedlex .; fi
-  - if [ $TASK != ci:runtime ]; then opam install -y --deps-only sedlex; fi
-  - if [ $TASK != ci:runtime ]; then eval `opam config env`; fi
-  - if [ $TASK != ci:runtime ] && [ -n $VERBOSE ]; then opam config env; opam list; fi
 
 script: npm run $TASK
 
