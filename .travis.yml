@@ -14,15 +14,24 @@ cache:
 install:
   - git fetch --tags
 
-  - npm ci $VERBOSE_FLAG --ignore-scripts
-  - npm install $VERBOSE_FLAG --ignore-scripts --no-save ./ppx-sedlex
+  # Install dependencies, and then either install or build bs-platform
+  - npm_config_loglevel="$LOGLEVEL" npm ci --ignore-scripts
+  - |
+    if [ -n $BS_PLATFORM ]; then
+      npm_config_loglevel="$LOGLEVEL" npm install --ignore-scripts --no-save \
+        "bs-platform@$BS_PLATFORM"
+    else
+      npm_config_loglevel="$LOGLEVEL" npm rebuild bs-platform
+    fi
+
+  - npm_config_loglevel="$LOGLEVEL" npm install --ignore-scripts --no-save ./ppx-sedlex
 
   - if [ $TASK != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
   - if [ $TASK != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
   - if [ $TASK != ci:runtime ]; then opam pin -y -n add sedlex .; fi
   - if [ $TASK != ci:runtime ]; then opam install -y --deps-only sedlex; fi
   - if [ $TASK != ci:runtime ]; then eval `opam config env`; fi
-  - if [ $TASK != ci:runtime ] && [ -n $VERBOSE_FLAG ]; then opam config env; opam list; fi
+  - if [ $TASK != ci:runtime ] && [ -n $LOGLEVEL ]; then opam config env; opam list; fi
 
 script: npm run $TASK
 
@@ -52,7 +61,18 @@ env:
     - OPAM_SWITCH=4.02.3+buckle-master
   matrix:
     - TASK=ci:ppx-examples-test
+    - TASK=ci:ppx-examples-test BS_PLATFORM=latest
+    - TASK=ci:ppx-examples-test BS_PLATFORM=next
     - TASK=ci:runtime
+    - TASK=ci:runtime BS_PLATFORM=latest
+    - TASK=ci:runtime BS_PLATFORM=next
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - env: TASK=ci:ppx-examples-test BS_PLATFORM=next
+  - env: TASK=ci:runtime BS_PLATFORM=next
+
 
 os:
   - linux
