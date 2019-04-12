@@ -14,7 +14,7 @@
     "ppx-sedlex/ppx.js"
   ],
   "bs-dependencies": [
-    "@elliottcable/bs-uchar",
+    "bs-uchar",
     "@elliottcable/bs-gen"
   ],
   "package-specs": {

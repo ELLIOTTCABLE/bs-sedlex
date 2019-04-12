@@ -7,7 +7,7 @@
     }
   ],
   "bs-dependencies": [
-    "@elliottcable/bs-uchar",
+    "bs-uchar",
     "@elliottcable/bs-gen"
   ],
   "package-specs": {
