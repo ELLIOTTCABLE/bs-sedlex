@@ -36,8 +36,9 @@ install:
   # Now we either select a particular `bs-platform` to install, or manually process the
   # `postinstall` script of the one we installed above.
   - |
-    if [ -n "$BS_PLATFORM" ]; then
-      npm install "bs-platform@$BS_PLATFORM"
+    if [ -n "$GENERATION" ]; then
+      npm install "bs-platform@$GENERATION"
+      npm install "bs-uchar@$GENERATION"
     else
       npm rebuild bs-platform
     fi
@@ -73,17 +74,17 @@ env:
     - OPAM_SWITCH=4.02.3+buckle-master
   matrix:
     - TASK=ci:ppx-examples-test
-    - TASK=ci:ppx-examples-test BS_PLATFORM=latest
-    - TASK=ci:ppx-examples-test BS_PLATFORM=next
+    - TASK=ci:ppx-examples-test GENERATION=latest
+    - TASK=ci:ppx-examples-test GENERATION=next
     - TASK=ci:runtime
-    - TASK=ci:runtime BS_PLATFORM=latest
-    - TASK=ci:runtime BS_PLATFORM=next
+    - TASK=ci:runtime GENERATION=latest
+    - TASK=ci:runtime GENERATION=next
 
 matrix:
   fast_finish: true
   allow_failures:
-  - env: TASK=ci:ppx-examples-test BS_PLATFORM=next
-  - env: TASK=ci:runtime BS_PLATFORM=next
+  - env: TASK=ci:ppx-examples-test GENERATION=next
+  - env: TASK=ci:runtime GENERATION=next
 
 
 os:
