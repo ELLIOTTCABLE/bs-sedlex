@@ -7,12 +7,12 @@
     "example": "examples"
   },
   "dependencies": {
-    "@elliottcable/bs-gen": "^0.5.1",
-    "bs-platform": "^4.0.3"
+    "bs-gen": "^0.5.2-pre.1"
   },
   "devDependencies": {
     "arch": "^2.1.1",
     "archiver": "^2.1.1",
+    "bs-platform": "^4.0.3",
     "bs-uchar": "0.0.4",
     "cpy": "^7.0.1",
     "foreach-cli": "^1.8.1",
@@ -21,7 +21,8 @@
     "ppx-sedlex": "=2.0.0"
   },
   "peerDependencies": {
-    "bs-uchar": "*"
+    "bs-uchar": "*",
+    "bs-platform": ">=4.0.3"
   },
   "scripts": {
     "clean:examples": "npm run clean:ppx && cd examples && bsb -clean-world",
