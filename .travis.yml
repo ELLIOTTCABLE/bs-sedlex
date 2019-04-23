@@ -1,92 +1,54 @@
 sudo: required
 git:
-  depth: 3
+   depth: 3
 
 language: node_js
 node_js:
-  - "10"
+   - "10"
 
 cache:
-  directories:
-  - $HOME/.opam
-  - $HOME/.npm
+   directories:
+      - $HOME/.opam
+      - $HOME/.npm
 
-install:
-  - git fetch --tags
+install: STAGE=install npm run travis
 
-  - if [ "$TASK" != ci:runtime ]; then wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-ocaml.sh; fi
-  - if [ "$TASK" != ci:runtime ]; then bash -ex .travis-ocaml.sh; fi
-  - if [ "$TASK" != ci:runtime ]; then opam pin -y -n add sedlex .; fi
-  - if [ "$TASK" != ci:runtime ]; then opam install -y --deps-only sedlex; fi
-  - if [ "$TASK" != ci:runtime ]; then eval `opam config env`; fi
-  - if [ "$TASK" != ci:runtime ] && [ -n "$VERBOSE" ]; then opam config env; opam list; fi
-
-  # Enable configurable debugging without adding new commits. (If something goes wrong, you
-  # can set $VERBOSE to some value inside Travis's configuration, and then hit "rebuild".)
-  - if [ -n "$VERBOSE" ]; then npm config set loglevel verbose; fi
-
-  # Install npm dependencies, but avoid invoking our own `prepare` script
-  - npm ci --ignore-scripts
-
-  # (A horrible hack is necessary here, with which we *manually* apply any `postinstall` scripts of
-  # transitive dependencies. Yuck.)
-  # See: <https://npm.community/t/ignore-scripts-ignores-all-scripts/1403/10>
-  - npm rebuild node-jq
-
-  # Now we either select a particular `bs-platform` to install, or manually process the
-  # `postinstall` script of the one we installed above.
-  - |
-    if [ -n "$GENERATION" ]; then
-      npm install "bs-platform@$GENERATION"
-      npm install "bs-uchar@$GENERATION"
-    else
-      npm rebuild bs-platform
-    fi
-
-  # Finally, we ‘install’ our own local `ppx-sedlex` version.
-  - npm link ./ppx-sedlex
-
-script: npm run $TASK
+script: STAGE=script npm run travis
 
 jobs:
-  include:
-    - stage: deploy
-      os: linux
-      script: npm run prepare:ppx
-      deploy: &gh-release
-        provider: releases
-        on:
-          tags: true
-        skip_cleanup: true
-        api_key:
-          secure: FXlYB0nsXDE2DXf+8zAEH7j2pnRxRIHiHZFN0pCDQqTkfOSKHIfhZ1+L0JD8vkV7GtXDBYAiFmVlYZyPTOWSDHKTWROdpe6qsJsV5EJXmREIjmgMUI14SDJITtyXSE7cezPVtKdjwprJtZUHIvKPbFYscM0DF0ayT0NwFqz01aE/DIQk2AWrzcaDzNSnCsYYoJsDtetOLmWXeABHV/ohfrEF1bfurqk8hSLdhDirE7xZm2gr+KgY8tYP3geU4hqVX4tk9xydnxiWGj3N7Z7CBmOLAXDm2sXJT8fjAN/DaorO7EPEZQw4tScmTigGQKrJ0jvNtJ6QpvG3sthFyxpkuhvW0+YGNdco9PcK8aoJGztwbi0+Fc54CfIUGtN/hxTsGWopUOGAAV3R0o91TXB25oNZlzzeSVZx2tbyDHqeP1w3l/9/bLbejBQcgBh0vEx6QDsCZT/c8i/QVOozZD6y50BmaSRdPu/QtAs3IU7cQLCz42l2IYH3gDTjpy1zpblZaHabQ6xfzl95PiodXKekHblypgOWgc+5QNuUo1+kXqIa84KlV4G67EOFKCR+QvnHpVgX9PAnw5K9G4Fp6Uc5og13verN/phSTeW5R08AGx9T5ieEz39g4FrwZSnQzqzbWBwygt9NHHiauUxETI44n3haLgFj0gQVnshZWn4ZSsg=
-        file_glob: true
-        file: dist/*
-        overwrite: true
-        draft: true
-    - os: osx
-      script: npm run prepare:ppx
-      deploy: *gh-release
+   include:
+      - stage: deploy
+        os: linux
+        script: npm run prepare:ppx
+        deploy: &gh-release
+           provider: releases
+           on:
+              tags: true
+           skip_cleanup: true
+           api_key:
+              secure: FXlYB0nsXDE2DXf+8zAEH7j2pnRxRIHiHZFN0pCDQqTkfOSKHIfhZ1+L0JD8vkV7GtXDBYAiFmVlYZyPTOWSDHKTWROdpe6qsJsV5EJXmREIjmgMUI14SDJITtyXSE7cezPVtKdjwprJtZUHIvKPbFYscM0DF0ayT0NwFqz01aE/DIQk2AWrzcaDzNSnCsYYoJsDtetOLmWXeABHV/ohfrEF1bfurqk8hSLdhDirE7xZm2gr+KgY8tYP3geU4hqVX4tk9xydnxiWGj3N7Z7CBmOLAXDm2sXJT8fjAN/DaorO7EPEZQw4tScmTigGQKrJ0jvNtJ6QpvG3sthFyxpkuhvW0+YGNdco9PcK8aoJGztwbi0+Fc54CfIUGtN/hxTsGWopUOGAAV3R0o91TXB25oNZlzzeSVZx2tbyDHqeP1w3l/9/bLbejBQcgBh0vEx6QDsCZT/c8i/QVOozZD6y50BmaSRdPu/QtAs3IU7cQLCz42l2IYH3gDTjpy1zpblZaHabQ6xfzl95PiodXKekHblypgOWgc+5QNuUo1+kXqIa84KlV4G67EOFKCR+QvnHpVgX9PAnw5K9G4Fp6Uc5og13verN/phSTeW5R08AGx9T5ieEz39g4FrwZSnQzqzbWBwygt9NHHiauUxETI44n3haLgFj0gQVnshZWn4ZSsg=
+           file_glob: true
+           file: dist/*
+           overwrite: true
+           draft: true
+      - os: osx
+        script: npm run prepare:ppx
+        deploy: *gh-release
 
 env:
-  global:
-    - OCAML_VERSION=4.02
-    - OPAM_SWITCH=4.02.3+buckle-master
-  matrix:
-    - TASK=ci:ppx-examples-test
-    - TASK=ci:ppx-examples-test GENERATION=latest
-    - TASK=ci:ppx-examples-test GENERATION=next
-    - TASK=ci:runtime
-    - TASK=ci:runtime GENERATION=latest
-    - TASK=ci:runtime GENERATION=next
+   - COMPONENT=ppx-examples-test
+   - COMPONENT=ppx-examples-test GENERATION=latest
+   - COMPONENT=ppx-examples-test GENERATION=next
+   - COMPONENT=runtime
+   - COMPONENT=runtime GENERATION=latest
+   - COMPONENT=runtime GENERATION=next
 
 matrix:
-  fast_finish: true
-  allow_failures:
-  - env: TASK=ci:ppx-examples-test GENERATION=next
-  - env: TASK=ci:runtime GENERATION=next
-
+   fast_finish: true
+   allow_failures:
+      - env: COMPONENT=ppx-examples-test GENERATION=next
+      - env: COMPONENT=runtime GENERATION=next
 
 os:
-  - linux
-  - osx
+   - linux
+   - osx

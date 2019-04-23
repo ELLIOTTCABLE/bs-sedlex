@@ -37,8 +37,7 @@
     "preversion": "./scripts/preversion.sh",
     "version": "./scripts/version.sh",
     "test": "foreach -g 'examples/*.bs.js' -x 'node #{path}'",
-    "ci:ppx-examples-test": "npm run build:examples && npm run test",
-    "ci:runtime": "npm run build:runtime"
+    "travis": "./scripts/travis.sh"
   },
   "files": [
     "bsconfig.json",
