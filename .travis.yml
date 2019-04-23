@@ -44,7 +44,7 @@ install:
     fi
 
   # Finally, we ‘install’ our own local `ppx-sedlex` version.
-  - npm install ./ppx-sedlex
+  - npm link ./ppx-sedlex
 
 script: npm run $TASK
 
