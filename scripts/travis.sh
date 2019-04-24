@@ -26,8 +26,8 @@ install_matching_ocaml() {
    BSC_VERSION="$(bsc -vnum)"
 
    case "$BSC_VERSION" in
-      *OCaml4.02.3*) export OPAM_SWITCH=4.02.3;;
-      *OCaml4.06.1*) export OPAM_SWITCH=4.06.1;;
+      *OCaml4.02.3*) export OCAML_VERSION=4.02 OPAM_SWITCH=4.02.3;;
+      *OCaml4.06.1*) export OCAML_VERSION=4.06 OPAM_SWITCH=4.06.1;;
       *)
          pute 'Unrecognized `bsc` version: '"$BSC_VERSION"
          exit 10
