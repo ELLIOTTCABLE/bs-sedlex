@@ -13,7 +13,7 @@ cache:
 
 install: STAGE=install npm run travis
 
-script: STAGE=script npm run travis
+script: STAGE=test npm run travis
 
 jobs:
    include:
