@@ -94,6 +94,8 @@ do_script() {
          x npm run build:runtime
       ;;
       ppx-examples-test)
+         eval `opam config env`
+
          x npm run --silent build:ppx
          (cd examples && x bsb -make-world)
          x npm run --silent test
