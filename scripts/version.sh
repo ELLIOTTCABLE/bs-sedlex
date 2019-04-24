@@ -19,6 +19,10 @@ OLD_VERSION="$OLD_VERSION"
 EOF
 }
 
+
+# Script setup & resumption
+# ------ ----- - ----------
+
 if [ -r .deploy-status.env ]; then
    puts ''
    puts 'These values were found in `.deploy-status.env`:'
@@ -76,10 +80,9 @@ if [ "$NEW_VERSION" = "$OLD_VERSION" ]; then
    exit 2
 fi
 
-# Step dispatch
-# -------------
-eval "'step_$STEP'"
 
+# Steps
+# -----
 step_1() {
    STEP=1 && dump_status
 
@@ -335,3 +338,8 @@ step_15() {
 
    # there is no step 16! ... lol.
 }
+
+
+# Step dispatch
+# ---- --------
+eval "'step_$STEP'"
