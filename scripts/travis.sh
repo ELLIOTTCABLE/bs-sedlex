@@ -1,3 +1,5 @@
+set -e
+
 puts() { printf %s\\n "$@" ;}
 pute() { printf %s\\n "~~ $*" >&2 ;}
 argq() { [ $# -gt 0 ] && printf "'%s' " "$@" ;}
@@ -48,7 +50,7 @@ install_matching_ocaml() {
 
 # Stages
 # ------
-do_install() {
+stage_install() {
    # Enable configurable debugging without adding new commits. (If something goes wrong,
    # you can set $VERBOSE to some value inside Travis's configuration, and then hit
    # "rebuild".)
@@ -88,10 +90,10 @@ do_install() {
    if [ "$COMPONENT" != "runtime" ]; then install_matching_ocaml; fi
 }
 
-do_script() {
+stage_test() {
    case "$COMPONENT" in
       runtime)
-         x npm run build:runtime
+         x npm run --silent build:runtime
       ;;
       ppx-examples-test)
          eval `opam config env`
@@ -103,9 +105,17 @@ do_script() {
    esac
 }
 
+stage_deploy() {
+   eval `opam config env`
+
+   x npm run --silent clean:ppx
+   x npm run --silent build:ppx
+}
+
 # Invocation
 # ----------
 case "$STAGE" in
-   install) do_install ;;
-   script) do_script ;;
+   install) stage_install ;;
+   test) stage_test ;;
+   deploy) stage_deploy ;;
 esac

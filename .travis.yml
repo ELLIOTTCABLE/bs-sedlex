@@ -19,7 +19,7 @@ jobs:
    include:
       - stage: deploy
         os: linux
-        script: npm run prepare:ppx
+        script: STAGE=deploy npm run travis
         deploy: &gh-release
            provider: releases
            on:
@@ -32,7 +32,7 @@ jobs:
            overwrite: true
            draft: true
       - os: osx
-        script: npm run prepare:ppx
+        script: STAGE=deploy npm run travis
         deploy: *gh-release
 
 env:

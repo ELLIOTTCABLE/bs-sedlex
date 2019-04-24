@@ -32,7 +32,6 @@
     "build:ppx": "dune build && node scripts/package.js",
     "clean": "npm run clean:runtime && npm run clean:ppx",
     "build": "npm run build:runtime && npm run build:ppx",
-    "prepare:ppx": "npm run clean:ppx && npm run build:ppx",
     "prepare": "npm run clean && npm run build:runtime",
     "preversion": "./scripts/preversion.sh",
     "version": "./scripts/version.sh",
