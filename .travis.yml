@@ -31,7 +31,17 @@ jobs:
            file: dist/*
            overwrite: true
            draft: true
+      - os: linux
+        env:
+           - GENERATION=next
+        script: STAGE=deploy npm run travis
+        deploy: *gh-release
       - os: osx
+        script: STAGE=deploy npm run travis
+        deploy: *gh-release
+      - os: osx
+        env:
+           - GENERATION=next
         script: STAGE=deploy npm run travis
         deploy: *gh-release
 
@@ -43,11 +53,11 @@ env:
    - COMPONENT=runtime GENERATION=latest
    - COMPONENT=runtime GENERATION=next
 
-matrix:
-   fast_finish: true
-   allow_failures:
-      - env: COMPONENT=ppx-examples-test GENERATION=next
-      - env: COMPONENT=runtime GENERATION=next
+# matrix:
+#    fast_finish: true
+#    allow_failures:
+#       - env: COMPONENT=ppx-examples-test GENERATION=next
+#       - env: COMPONENT=runtime GENERATION=next
 
 os:
    - linux
