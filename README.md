@@ -27,24 +27,51 @@ configuration-file, `bsconfig.json`, are included below. Don't miss them!
 You can safely ignore the installation instructions in the upstream README reproduced below, when
 compiling to JS using BuckleScript. Instead:
 
-1. Install this fork through [npm][] (this will automatically install `ppx-sedlex` as well, as it's
-   a transitive dependency):
+1. If you're writing an app or a similar end-consumer project, install the peerDependencies of this
+   project via [npm][], including the BuckleScript compiler and the [`bs-uchar`][bs-uchar] shim.
+   See that package's README for details on selecting the appropriate versions of these
+   dependencies; but briefly, choose either `bs-platform` 4 or 5 ...
+
+   ```sh
+   $ npm install --save bs-platform@latest # 4.x.x || 5.x.x, corresponding to OCaml 4.02
+   $ npm install --save bs-uchar@latest # 0.x.x
+   ```
+
+   ... or, the new `bs-platform` 6:
+
+   ```sh
+   $ npm install --save bs-platform@next # >= 6.0.0, corresponding to OCaml 4.06
+   $ npm install --save bs-uchar@next # 1.x.x
+   ```
+
+   (Worh repeating: *do not add these dependencies to a library.* See [a more thorough
+   discussion][uchar-notes] in the `bs-uchar` README; but basically, shims like `bs-uchar` should
+   only be installed in the final consumer project that's selecting the `bs-platform` version.)
+
+2. Add the ppx transformer into `"devDependencies"`:
+
+   ```sh
+   $ npm install --save-dev ppx-sedlex
+   ```
+
+3. Add the runtime package (this one!) to your direct `"dependencies"`, for both libraries and apps:
 
    ```sh
    $ npm install --save bs-sedlex
    ```
 
-2. Manually add the runtime package, `bs-sedlex`, to your `bsconfig.json`'s
-   `bs-dependencies` field:
+4. Manually add both the runtime package (`bs-sedlex`) and Uchar-shim (`bs-uchar`) to your
+   `bsconfig.json`'s `bs-dependencies` field:
 
    ```diff
     "bs-dependencies": [
       ...
+   +  "bs-uchar",
    +  "bs-sedlex"
     ],
    ```
 
-3. Additionally tell BuckleScript to apply the `ppx-sedlex` syntax-transformer over your source-code
+5. Additionally tell BuckleScript to apply the `ppx-sedlex` syntax-transformer over your source-code
    by adding a `ppx-flags` field at the root level of the same `bsconfig.json`. (Note that,
    unintuitively, this is *not* a relative path; it follows the format `package-name/file-path`.)
 
@@ -58,10 +85,14 @@ compiling to JS using BuckleScript. Instead:
    +],
    ```
 
-4. Write blazing-fast, type-safe, and Unicode-aware / multilingual lexers and parsers galore!
+6. Write blazing-fast, type-safe, and Unicode-aware / multilingual lexers and parsers galore!
 
    [npm]: <https://www.npmjs.com/>
       "npm, the package-manager for the JavaScript ecosystem"
+   [bs-uchar]: <https://github.com/ELLIOTTCABLE/bs-uchar#readme>
+      "A BuckleScript-ported shim for the core OCaml Uchar.t type"
+   [uchar-notes]: <https://github.com/ELLIOTTCABLE/bs-uchar#versioning--libraries>
+      "Detailed description of the issues involved in adding an ML shim to an intermediate libarary"
 
 ## Parser-writing tips from a fellow JavaScripter
 
