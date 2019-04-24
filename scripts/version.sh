@@ -229,8 +229,8 @@ step_8() {
 }
 
 
-step_10() {
-   STEP=10 && dump_status
+step_9() {
+   STEP=9 && dump_status
 
    puts ''
    (  cd ./ppx-sedlex && \
@@ -247,12 +247,12 @@ step_10() {
       exit 4
    fi
 
-   step_11
+   step_10
 }
 
 
-step_11() {
-   STEP=11 && dump_status
+step_10() {
+   STEP=10 && dump_status
 
    puts ''
    (  cd ./ppx-sedlex && \
@@ -266,12 +266,12 @@ step_11() {
       exit 4
    fi
 
-   step_12
+   step_11
 }
 
 
-step_12() {
-   STEP=12 && dump_status
+step_11() {
+   STEP=11 && dump_status
 
    puts ''
    printf %s "Update superproject's dependency on ppx-sedlex? [Y/n] "; read yn
@@ -285,12 +285,12 @@ step_12() {
       exit 4
    fi
 
-   step_13
+   step_12
 }
 
 
-step_13() {
-   STEP=13 && dump_status
+step_12() {
+   STEP=12 && dump_status
 
    puts ''
    git status
@@ -301,12 +301,12 @@ step_13() {
       exit 4
    fi
 
-   step_14
+   step_13
 }
 
 
-step_14() {
-   STEP=14 && dump_status
+step_13() {
+   STEP=13 && dump_status
 
    puts ''
    printf %s 'Push the final, linked commits upstream? [Y/n] '; read yn
@@ -319,12 +319,12 @@ step_14() {
       exit 4
    fi
 
-   step_15
+   step_14
 }
 
 
-step_15() {
-   STEP=15 && dump_status
+step_14() {
+   STEP=14 && dump_status
 
    puts ''
    npm pack && \
@@ -336,7 +336,8 @@ step_15() {
       exit 4
    fi
 
-   # there is no step 16! ... lol.
+   # there is no step 15! ... lol.
+   rm .deploy-status.env
 }
 
 
