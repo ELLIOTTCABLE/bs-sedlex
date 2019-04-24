@@ -94,6 +94,25 @@ compiling to JS using BuckleScript. Instead:
    [uchar-notes]: <https://github.com/ELLIOTTCABLE/bs-uchar#versioning--libraries>
       "Detailed description of the issues involved in adding an ML shim to an intermediate libarary"
 
+## Versioning of this package
+Thanks to [SemVer not including a ‘generation’ number][semver-213], there's really no way I can
+reasonably tie this project's version on npm to the upstream version of Sedlex as released by the
+community maintainers. As ugly as it is, I've opted to pin the *major version* of `bs-sedlex`, to
+the *flattened* major and minor versions of the upstream project.
+
+I started doing this with Sedlex 2.0; thus, the mapping looks like this:
+
+| Sedlex    | `bs-sedlex` |
+| --------- | ----------- |
+| `v1.99.4` | `v1.99.4`   |
+| `v2.0`    | `v20.0.x`   |
+
+Correspondingly, this project can't really strictly adhere to SemVer. Tentatively, I intend to use
+the ‘minor’ field for breaking changes to the port, and the ‘patch’ field for everything else.
+
+   [semver-213]: <https://github.com/semver/semver/issues/213#issuecomment-266914818>
+      "A discussion around extending SemVer with an additional, human-focused major component"
+
 ## Parser-writing tips from a fellow JavaScripter
 
 I'm dogfooding this port on a parsing-project in JavaScript & ML (Excmd.js, <https://excmd.js.org>).
