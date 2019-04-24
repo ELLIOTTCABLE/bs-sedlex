@@ -19,6 +19,7 @@ jobs:
    include:
       - stage: deploy
         os: linux
+        env: COMPONENT=ppx-examples-test
         script: STAGE=deploy npm run travis
         deploy: &gh-release
            provider: releases
@@ -32,16 +33,15 @@ jobs:
            overwrite: true
            draft: true
       - os: linux
-        env:
-           - GENERATION=next
+        env: COMPONENT=ppx-examples-test GENERATION=next
         script: STAGE=deploy npm run travis
         deploy: *gh-release
       - os: osx
+        env: COMPONENT=ppx-examples-test
         script: STAGE=deploy npm run travis
         deploy: *gh-release
       - os: osx
-        env:
-           - GENERATION=next
+        env: COMPONENT=ppx-examples-test GENERATION=next
         script: STAGE=deploy npm run travis
         deploy: *gh-release
 
