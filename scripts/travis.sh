@@ -85,7 +85,7 @@ do_install() {
 
    # Finally, for everything except the `runtime`, we need a working OCaml installation of
    # the same version as the BuckleScript we just built.
-   if [ "$COMPONENT" != "runtime" ]; then install_ocaml; fi
+   if [ "$COMPONENT" != "runtime" ]; then install_matching_ocaml; fi
 }
 
 do_script() {
