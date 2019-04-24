@@ -1,23 +1,17 @@
 {
-  "name": "bs-sedlex",
-  "version": "2.0.0",
-  "sources": [
-    {
-      "dir": "src/lib"
-    }
-  ],
-  "bs-dependencies": [
-    "bs-uchar",
-    "@elliottcable/bs-gen"
-  ],
-  "package-specs": {
-    "module": "commonjs",
-    "in-source": true
-  },
-  "suffix": ".bs.js",
-  "bsc-flags": [
-    "-bs-super-errors",
-    "-bs-no-version-header"
-  ],
-  "refmt": 3
+   "name": "bs-sedlex",
+   "version": "2.0.0",
+   "sources": [
+      {
+         "dir": "src/lib"
+      }
+   ],
+   "bs-dependencies": ["bs-uchar", "@elliottcable/bs-gen"],
+   "package-specs": {
+      "module": "commonjs",
+      "in-source": true
+   },
+   "suffix": ".bs.js",
+   "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
+   "refmt": 3
 }
