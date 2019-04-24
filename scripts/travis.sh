@@ -7,9 +7,6 @@ argq() { [ $# -gt 0 ] && printf "'%s' " "$@" ;}
 # An alternative to `set +o xtrace` that doesn't print the unset line.
 x () { puts '`` '"$*" >&2 ; "$@" || exit $? ;}
 
-alias jq="$(npm prefix)/node_modules/node-jq/bin/jq"
-pj() { jq -er "$1" package.json ;}
-
 if [ -z "$STAGE" ] || [ -z "$COMPONENT" ]; then
    pute 'This script is intended to be called in a CI environment with a current $STAGE,'
    pute 'and a $COMPONENT to build. e.g.'
