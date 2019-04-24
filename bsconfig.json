@@ -6,7 +6,7 @@
          "dir": "src/lib"
       }
    ],
-   "bs-dependencies": ["bs-uchar", "@elliottcable/bs-gen"],
+   "bs-dependencies": ["bs-uchar", "bs-gen"],
    "package-specs": {
       "module": "commonjs",
       "in-source": true
