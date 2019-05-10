@@ -1,6 +1,5 @@
 {
    "name": "bs-sedlex-examples",
-   "version": "1.99.4-pre.5",
    "sources": [
       {
          "dir": "../src/lib"
