@@ -27,28 +27,34 @@ configuration-file, `bsconfig.json`, are included below. Don't miss them!
 You can safely ignore the installation instructions in the upstream README reproduced below, when
 compiling to JS using BuckleScript. Instead:
 
-1. If you're writing an app or a similar end-consumer project, install the peerDependencies of this
-   project via [npm][], including the BuckleScript compiler and the [`bs-uchar`][bs-uchar] shim.
-   See that package's README for details on selecting the appropriate versions of these
-   dependencies; but briefly, choose either `bs-platform` 4 or 5 ...
+1. If you're writing an app or a similar end-consumer project, install BuckleScript compiler (a
+   peerDependency of this project) via [npm][].
 
    ```sh
-   $ npm install --save bs-platform@latest # 4.x.x || 5.x.x, corresponding to OCaml 4.02
-   $ npm install --save bs-uchar@latest # 0.x.x
+   $ npm install --save bs-platform
    ```
 
-   ... or, the new `bs-platform` 6:
+   Worh repeating: *do not add this dependencies to a library.* The final application-developer
+   should generally select the version of the BuckleScript compiler; you don't want users having
+   duplicated versions of the compiler in their `node_modules`. Instead, library developers should
+   add `bs-platform` to both `"peerDependencies"` (with a permissive version), and
+   `"devDependencies"` (with a restrictive version):
 
    ```sh
-   $ npm install --save bs-platform@next # >= 6.0.0, corresponding to OCaml 4.06
-   $ npm install --save bs-uchar@next # 1.x.x
+   $ npm install --save-dev bs-platform
    ```
 
-   (Worh repeating: *do not add these dependencies to a library.* See [a more thorough
-   discussion][uchar-notes] in the `bs-uchar` README; but basically, shims like `bs-uchar` should
-   only be installed in the final consumer project that's selecting the `bs-platform` version.)
+   ```diff
+    "devDependencies": {
+      ...
+      "bs-platform": "^5.0.0"
+    },
+    "peerDependencies": {
+   +  "bs-platform": "4.x || 5.x" // example. express the versions of BuckleScript you support here.
+    },
+   ```
 
-2. Add the ppx transformer into `"devDependencies"`:
+2. Add the ppx transformer to your `"devDependencies"`:
 
    ```sh
    $ npm install --save-dev ppx-sedlex
@@ -60,13 +66,12 @@ compiling to JS using BuckleScript. Instead:
    $ npm install --save bs-sedlex
    ```
 
-4. Manually add both the runtime package (`bs-sedlex`) and Uchar-shim (`bs-uchar`) to your
-   `bsconfig.json`'s `bs-dependencies` field:
+4. Manually add the the runtime package (`bs-sedlex`) to your `bsconfig.json`'s `bs-dependencies`
+   field:
 
    ```diff
     "bs-dependencies": [
       ...
-   +  "bs-uchar",
    +  "bs-sedlex"
     ],
    ```
@@ -89,10 +94,6 @@ compiling to JS using BuckleScript. Instead:
 
    [npm]: <https://www.npmjs.com/>
       "npm, the package-manager for the JavaScript ecosystem"
-   [bs-uchar]: <https://github.com/ELLIOTTCABLE/bs-uchar#readme>
-      "A BuckleScript-ported shim for the core OCaml Uchar.t type"
-   [uchar-notes]: <https://github.com/ELLIOTTCABLE/bs-uchar#versioning--libraries>
-      "Detailed description of the issues involved in adding an ML shim to an intermediate libarary"
 
 ## Versioning of this package
 Thanks to [SemVer not including a ‘generation’ number][semver-213], there's really no way I can

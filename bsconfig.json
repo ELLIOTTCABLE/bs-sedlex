@@ -16,6 +16,7 @@
   },
   "suffix": ".bs.js",
   "bsc-flags": [
+    "-open UcharShim",
     "-bs-super-errors",
     "-bs-no-version-header"
   ],

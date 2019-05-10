@@ -74,7 +74,6 @@ stage_install() {
    # `postinstall` script of the one we installed above.
    if [ -n "$GENERATION" ]; then
       x npm install "bs-platform@$GENERATION"
-      x npm install "bs-uchar@$GENERATION"
    else
       x npm rebuild bs-platform
    fi
