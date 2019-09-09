@@ -53,11 +53,12 @@ env:
    - COMPONENT=runtime GENERATION=latest
    - COMPONENT=runtime GENERATION=next
 
-# matrix:
-#    fast_finish: true
-#    allow_failures:
-#       - env: COMPONENT=ppx-examples-test GENERATION=next
-#       - env: COMPONENT=runtime GENERATION=next
+# Allow failures on the upcoming major version of BuckleScript
+#matrix:
+#   fast_finish: true
+#   allow_failures:
+#      - env: COMPONENT=ppx-examples-test GENERATION=next
+#      - env: COMPONENT=runtime GENERATION=next
 
 os:
    - linux

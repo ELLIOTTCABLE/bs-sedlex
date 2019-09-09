@@ -1,8 +1,8 @@
 <h1><img alt='Maintenance status: maintained' src="https://img.shields.io/maintenance/yes/2019.svg?style=popout-square&logo=verizon&logoColor=000000" align=right><a href="https://github.com/ELLIOTTCABLE/bs-sedlex/releases" align=right><img alt='Latest npm release' src="https://img.shields.io/npm/v/bs-sedlex.svg?style=popout-square&logo=npm&label=bs%20version" align=right></a><a target="_blank" href="https://travis-ci.com/ELLIOTTCABLE/bs-sedlex" align=right><img alt='Build status on Travis-CI' src="https://img.shields.io/travis/com/ELLIOTTCABLE/bs-sedlex.svg?style=popout-square&logo=travis&label=bs%20build" align=right></a><a target="_blank" href="https://twitter.com/intent/follow?screen_name=ELLIOTTCABLE" align=right><img alt='Follow my work on Twitter' src="https://img.shields.io/twitter/follow/ELLIOTTCABLE.svg?style=popout-square&logo=twitter&label=%40ELLIOTTCABLE&color=blue" align=right></a>
 <code>bs-sedlex</code></h1>
 
-> **For details on purpose, usage, and API of sedlex, [scroll down](#sedlex).** These sections added
-> at the top is specific to ways that installation and usage of the `bs-sedlex` distribution
+> **For details on purpose, usage, and API of sedlex, [scroll down](#sedlex).** These sections I've
+> added at the top are specific to ways that installation and usage of the `bs-sedlex` distribution
 > **differ** from using the upstream release.
 
 This repository contains a fork of the [sedlex][] lexer-generator tooling for OCaml-family
@@ -11,8 +11,8 @@ and [ReasonML][] (an alternative OCaml syntax targeting that compiler.)
 
 Care is taken in this project to publish pre-compiled binaries of the [ppx
 syntax-extension](#lexer-specifications) component necessary to use sedlex in practice. These are
-published to npm as the separate package [`ppx-sedlex`][ppx-sedlex], versioned in lockstep with the
-parent `bs-sedlex` package. Instructions for *enabling* this extension in your BuckleScript
+published to npm as the separate npm package, [`ppx-sedlex`][ppx-sedlex], versioned in lockstep with
+the parent `bs-sedlex` package. Instructions for *enabling* this extension in your BuckleScript
 configuration-file, `bsconfig.json`, are included below. Don't miss them!
 
    [sedlex]: <https://github.com/ocaml-community/sedlex>
@@ -34,7 +34,7 @@ compiling to JS using BuckleScript. Instead:
    $ npm install --save bs-platform
    ```
 
-   Worh repeating: *do not add this dependencies to a library.* The final application-developer
+   Worh repeating: *do not add this dependency to a library.* The final application-developer
    should generally select the version of the BuckleScript compiler; you don't want users having
    duplicated versions of the compiler in their `node_modules`. Instead, library developers should
    add `bs-platform` to both `"peerDependencies"` (with a permissive version), and
@@ -66,7 +66,7 @@ compiling to JS using BuckleScript. Instead:
    $ npm install --save bs-sedlex
    ```
 
-4. Manually add the the runtime package (`bs-sedlex`) to your `bsconfig.json`'s `bs-dependencies`
+4. Manually add it (the runtime package, `bs-sedlex`) to your `bsconfig.json`'s `bs-dependencies`
    field:
 
    ```diff
@@ -96,6 +96,7 @@ compiling to JS using BuckleScript. Instead:
       "npm, the package-manager for the JavaScript ecosystem"
 
 ## Versioning of this package
+
 Thanks to [SemVer not including a ‘generation’ number][semver-213], there's really no way I can
 reasonably tie this project's version on npm to the upstream version of Sedlex as released by the
 community maintainers. As ugly as it is, I've opted to pin the *major version* of `bs-sedlex`, to
@@ -230,7 +231,7 @@ The syntax for the new construction is:
 or:
 
 ```ocaml
-  [%sedlex match lexbuf with 
+  [%sedlex match lexbuf with
   | R1 -> e1
   ...
   | Rn -> en
