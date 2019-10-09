@@ -72,8 +72,8 @@ stage_install() {
 
    # Now we either select a particular `bs-platform` to install, or manually process the
    # `postinstall` script of the one we installed above.
-   if [ -n "$GENERATION" ]; then
-      x npm install "bs-platform@$GENERATION"
+   if [ -n "$NPM_TAG" ]; then
+      x npm install "bs-platform@$NPM_TAG"
    else
       x npm rebuild bs-platform
    fi
