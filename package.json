@@ -7,7 +7,7 @@
     "example": "examples"
   },
   "dependencies": {
-    "bs-gen": "^0.5.2-pre.1",
+    "bs-gen": "^0.5.2",
     "bs-uchar": "^2.0.0-pre.0"
   },
   "devDependencies": {
