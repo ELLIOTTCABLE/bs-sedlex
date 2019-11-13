@@ -55,7 +55,7 @@ stage_install() {
       x npm config set loglevel verbose
    fi
 
-   x git fetch --tags
+   x git fetch --tags --no-recurse-submodules
 
    # Install npm dependencies, but avoid invoking our own `prepare` script
    x npm ci --ignore-scripts
